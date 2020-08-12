@@ -34,7 +34,7 @@ function Get-AuthToken
 
     $AadModule = Get-Module -Name "AzureAD" -ListAvailable
 
-    if ($AadModule -eq $null)
+    if ($null -eq $AadModule)
     {
         Write-Host "`r`n"
 
@@ -193,7 +193,7 @@ function ReassignSensitivityLabelToO365Groups
                 {
                     Write-Host $_.Exception.Message -f Red
 
-                    if ($_.Exception.Response -ne $null)
+                    if ($null -ne $_.Exception.Response)
                     {
                         $responseStream = $_.Exception.Response.GetResponseStream()
                         $streamReader = New-Object System.IO.StreamReader($responseStream)
@@ -203,7 +203,7 @@ function ReassignSensitivityLabelToO365Groups
                         {
                             $responseObject = $responseBody | ConvertFrom-Json
 
-                            if ($responseObject -ne $null -and $responseObject.'error' -ne $null)
+                            if ($null -ne $responseObject -and $null -ne $responseObject.'error')
                             {
                                 Write-Host "Error Code: " $responseObject.'error'.code -f Red
                                 Write-Host "Error Message: " $responseObject.'error'.message -f Red
@@ -284,17 +284,17 @@ function ReassignSensitivityLabelToO365Groups
                         Add-Content $LogFile -Value "`n"
                         Add-Content $LogFile -Value $_.Exception.Message
 
-                        if ($_.Exception.Response -ne $null)
+                        if ($null -ne $_.Exception.Response)
                         {
                             $responseStream = $_.Exception.Response.GetResponseStream()
                             $streamReader = New-Object System.IO.StreamReader($responseStream)
                             $responseBody = $streamReader.ReadToEnd()
 
-                            if ($responseBody -ne $null)
+                            if ($null -ne $responseBody)
                             {
                                 $responseObject = $responseBody | ConvertFrom-Json
 
-                                if ($responseObject -ne $null -and $responseObject.'error' -ne $null)
+                                if ($null -ne $responseObject -and $null -ne $responseObject.'error')
                                 {
                                     $errorCode = "Error Code: " + $responseObject.'error'.code
                                     $errorMessage = "Error Message: " + $responseObject.'error'.message
@@ -318,7 +318,7 @@ function ReassignSensitivityLabelToO365Groups
             }while ($true)
         }
 
-        if ($groupsFilterQueryResult.'@odata.nextLink' -eq $null)
+        if ($null -eq $groupsFilterQueryResult.'@odata.nextLink')
         {
             break
         }
