@@ -100,7 +100,7 @@ function Get-AuthToken
     #
     # If the access token is valid, then create the authorization header.
     #
-    if($authResult.AccessToken -ne $null)
+    if($null -ne $authResult.AccessToken)
     {
         $authHeader = @{
             'Content-Type'='application/json'
