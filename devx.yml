@@ -1,0 +1,7 @@
+languages:
+- powershell
+extensions:
+  services:
+  - Azure AD
+  - Microsoft identity platform
+noDependencies: true
